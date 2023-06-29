@@ -1,60 +1,98 @@
+/**
+ * The PriorityQueue class represents a priority queue data structure implemented using an array.
+ * It supports insertion, removal, and retrieval of the minimum value in O(n) time complexity.
+ */
 public class PriorityQueue {
     private int maxSize;
     private int nItems;
     private long[] queueArray;
 
-    public PriorityQueue(int S){
-        maxSize= S;
-        queueArray= new long[maxSize];
-        nItems=0;
+    /**
+     * Constructs a PriorityQueue object with a specified maximum size.
+     *
+     * @param maxSize The maximum size of the priority queue.
+     */
+    public PriorityQueue(int maxSize) {
+        this.maxSize = maxSize;
+        queueArray = new long[maxSize];
+        nItems = 0;
     }
 
+    /**
+     * Inserts an item into the priority queue while maintaining the order.
+     *
+     * @param item The item to be inserted.
+     */
     public void insert(long item) {
-        int G;
+        int j;
 
         if (nItems == 0) {
             queueArray[nItems++] = item;
         } else {
-            for (G = nItems - 1; G >= 0; G--) {
-                if (item > queueArray[G]) {
-                    queueArray[G + 1] = queueArray[G];
+            for (j = nItems - 1; j >= 0; j--) {
+                if (item > queueArray[j]) {
+                    queueArray[j + 1] = queueArray[j];
                 } else {
                     break;
                 }
             }
-            queueArray[G + 1] = item;
+            queueArray[j + 1] = item;
             nItems++;
         }
     }
 
-    public long remove(){
+    /**
+     * Removes and returns the minimum value from the priority queue.
+     *
+     * @return The minimum value in the priority queue.
+     */
+    public long remove() {
         return queueArray[--nItems];
     }
 
-    public long peekMin(){
-        return queueArray[nItems-1];
+    /**
+     * Retrieves the minimum value from the priority queue without removing it.
+     *
+     * @return The minimum value in the priority queue.
+     */
+    public long peekMin() {
+        return queueArray[nItems - 1];
     }
 
-    public boolean isEmpty(){
-        return (nItems==0);
+    /**
+     * Checks if the priority queue is empty.
+     *
+     * @return true if the priority queue is empty, false otherwise.
+     */
+    public boolean isEmpty() {
+        return (nItems == 0);
     }
 
-    public boolean isFull(){
+    /**
+     * Checks if the priority queue is full.
+     *
+     * @return true if the priority queue is full, false otherwise.
+     */
+    public boolean isFull() {
         return (nItems == maxSize);
     }
 
+    /**
+     * The main method demonstrates the usage of the PriorityQueue class.
+     */
     public static void main(String[] args) {
-        PriorityQueue PQ= new PriorityQueue(5);
+        PriorityQueue pq = new PriorityQueue(5);
 
-        PQ.insert(100);
-        PQ.insert(200);
-        PQ.insert(50);
-        PQ.insert(300);
-        PQ.insert(350);
+        pq.insert(100);
+        pq.insert(200);
+        pq.insert(50);
+        pq.insert(300);
+        pq.insert(350);
 
-        while (!PQ.isEmpty()){
-            long item= PQ.remove();
+        while (!pq.isEmpty()) {
+            long item = pq.remove();
             System.out.println(item + "");
         }
     }
 }
+
